@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,14 +30,59 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+enum GroupValue { A, B }
+
 class _MyHomePageState extends State<MyHomePage> {
+  GroupValue _groupValue = GroupValue.A;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(),
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Radio<GroupValue>(
+                    onChanged: (value) {
+                      setState(() {
+                        _groupValue = value!;
+                        if (kDebugMode) {
+                          print(_groupValue);
+                        }
+                      });
+                    },
+                    groupValue: _groupValue,
+                    value: GroupValue.A,
+                  ),
+                  const Text("A"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Radio<GroupValue>(
+                    onChanged: (value) {
+                      setState(() {
+                        _groupValue = value!;
+                        if (kDebugMode) {
+                          print(_groupValue);
+                        }
+                      });
+                    },
+                    groupValue: _groupValue,
+                    value: GroupValue.B,
+                  ),
+                  const Text("B"),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
